@@ -1,4 +1,4 @@
-package data.fieldData;
+package data.fielddata;
 
 public enum InputFieldData {
     FNAME("fname"),

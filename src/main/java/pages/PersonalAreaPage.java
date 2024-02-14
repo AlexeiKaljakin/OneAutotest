@@ -1,11 +1,9 @@
 package pages;
 
 import common.AbsCommon;
-import data.countryCityes.CountryData;
-import data.countryCityes.ICityData;
-import data.countryCityes.RussiaCityData;
-import data.fieldData.InputFieldData;
-import data.genderData.GenderData;
+import data.countrycityes.ICityData;
+import data.fielddata.InputFieldData;
+import data.fielddata.genderdata.GenderData;
 import data.language.EnglishLevelData;
 import data.workformat.WorkFormatData;
 import org.apache.logging.log4j.LogManager;
@@ -81,10 +79,6 @@ public class PersonalAreaPage extends AbsCommon {
             }
         }
     }
-    public void clickAddCommunicationMethod() {
-        driver.findElement(By.cssSelector("button.js-lk-cv-custom-select-add")).click();
-    }
-//
 public void addContactsOne(String contactType, String contactValue) {
     driver.findElement(By.xpath("//button[@type='button' and text()='Добавить']")).click();
     waitTools.waitForCondition(ExpectedConditions.elementToBeClickable(By.xpath("//span[@class=\"placeholder\" and" +
@@ -121,12 +115,13 @@ public void addContactsOne(String contactType, String contactValue) {
         Assertions.assertEquals("Данные успешно сохранены", actualText);
 
     }
-    public void checkPersonalArea() {
-        Assertions.assertTrue(!driver.findElement(By.id("id_lname_latin")).getAttribute("value").isEmpty());
-        Assertions.assertTrue(!driver.findElement(By.id("id_lname")).getAttribute("value").isEmpty());
-        Assertions.assertTrue(!driver.findElement(By.id("id_fname_latin")).getAttribute("value").isEmpty());
-        Assertions.assertTrue(!driver.findElement(By.id("id_lname_latin")).getAttribute("value").isEmpty());
-        Assertions.assertTrue(!driver.findElement(By.id("id_blog_name")).getAttribute("value").isEmpty());
+    public void checkPersonalArea(InputFieldData inputFieldData) {
+        Assertions
+                .assertTrue(!driver.findElement
+                                (By.cssSelector(String.format("input[name='%s']", inputFieldData.getName())))
+                        .getAttribute("value").isEmpty());
+    }
+    public void chechPersonalAreaData(){
         Assertions.assertTrue(!driver.findElement(By.cssSelector(".input-icon > input:nth-child(1)")).getAttribute("value").isEmpty());
         Assertions.assertTrue(!driver.findElement(By.cssSelector(".js-lk-cv-dependent-master > label:nth-child(1) > div:nth-child(2)")).getText().isEmpty());
         Assertions.assertTrue(!driver.findElement(By.cssSelector(".js-lk-cv-dependent-slave-city > label:nth-child(1) > div:nth-child(2)")).getText().isEmpty());

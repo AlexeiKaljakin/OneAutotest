@@ -1,4 +1,4 @@
-package data.genderData;
+package data.fielddata.genderdata;
 
 public enum GenderData {
     MALE("m"),

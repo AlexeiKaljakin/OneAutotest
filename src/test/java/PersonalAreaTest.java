@@ -1,27 +1,22 @@
 import com.github.javafaker.Faker;
 import components.Header;
 import components.popups.AuthorizationPopup;
-import data.countryCityes.CountryData;
-import data.countryCityes.ICityData;
-import data.countryCityes.RussiaCityData;
-import data.fieldData.InputFieldData;
-import data.genderData.GenderData;
+import data.countrycityes.ICityData;
+import data.countrycityes.RussiaCityData;
+import data.fielddata.InputFieldData;
+import data.fielddata.genderdata.GenderData;
 import data.language.EnglishLevelData;
 import data.workformat.WorkFormatData;
 import driverfactory.WebDriverFactory;
 import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.ui.ExpectedConditions;
 import pages.MainPage;
 import pages.PersonalAreaPage;
-import tools.WaitTools;
+
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 
@@ -41,6 +36,12 @@ public class PersonalAreaTest {
         if(driver != null) {
             driver.quit();
             logger.info("Quit driver");
+        }
+    }
+    public void closeDriver() {
+        if(driver != null) {
+            driver.close();
+            logger.info("Close driver");
         }
     }
 
@@ -76,9 +77,7 @@ public class PersonalAreaTest {
        ICityData city = faker.options().nextElement(cityData);
 
         personalAreaPage.addCountry(city);
-
         personalAreaPage.addCity(city);
-
         personalAreaPage.addEnglishlevel(EnglishLevelData.FIRSTLEVEL);
         personalAreaPage.addWillingToRelocate(true);
         personalAreaPage.addWorkFormat(true, WorkFormatData.REMOTELY);
@@ -88,20 +87,28 @@ public class PersonalAreaTest {
         personalAreaPage.addDataFields(InputFieldData.COMPANY, faker.company().name());
         personalAreaPage.addDataFields(InputFieldData.POSITION, faker.job().position());
         personalAreaPage.clickSavePersonalArea();
-    }
-    @Test
-    public void checkData() {
+
+        stopDriver();
+        init();
+
         new MainPage(driver).open("/");
-        Header header = new Header(driver);
+        header = new Header(driver);
+        authorizationPopup = new AuthorizationPopup(driver);
+        personalAreaPage = new PersonalAreaPage(driver);
         header.clickLoginButton();
-        AuthorizationPopup authorizationPopup = new AuthorizationPopup(driver);
         authorizationPopup.popupShouldBeVisible();
         authorizationPopup.enterEmail();
         authorizationPopup.enterPassword();
         authorizationPopup.enterLoginButton();
         header.checkLogoUser();
         header.clickPersonalArea();
-        new PersonalAreaPage(driver).checkPersonalArea();
-    }
 
+        personalAreaPage.checkPersonalArea(InputFieldData.FNAME);
+        personalAreaPage.checkPersonalArea(InputFieldData.FNAMELATIN);
+        personalAreaPage.checkPersonalArea(InputFieldData.LNAME);
+        personalAreaPage.checkPersonalArea(InputFieldData.LNAMELATIN);
+        personalAreaPage.checkPersonalArea(InputFieldData.BLOGNAME);
+        personalAreaPage.checkPersonalArea(InputFieldData.DATEOFBRTH);
+        personalAreaPage.chechPersonalAreaData();
+    }
 }

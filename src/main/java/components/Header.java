@@ -23,13 +23,10 @@ public class Header extends AbsCommon {
         waitTools.waitForCondition(ExpectedConditions
                 .presenceOfElementLocated(By.cssSelector(iconUserSelector)));
     }
-    public void clickToUserIcon() {
-        driver.findElement(By.cssSelector(iconUserSelector)).click();
-    }
     public void clickPersonalArea() {
         driver.findElement(By
-                        .xpath("//div[@class='sc-r03h0s-5 sc-1youhxc-2 bYKNcH imWQF sc-1og4wiw-0-Component fgPsmr']"))
+                        .xpath("//div[@class='sc-1ceoo74-0 kwfuzG']"))
                 .click();
-        driver.findElement(By.xpath("//div/a[@href='https://otus.ru/lk/biography/personal']")).click();
+        driver.findElement(By.xpath("//div/a[@class='sc-1pgqitk-0 dNitgt sc-1og4wiw-0-E sc-f3yn2n-3 idgtCT flRwOF' and text()='Мой профиль']")).click();
     }
 }
