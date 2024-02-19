@@ -81,8 +81,9 @@ public class PersonalAreaTest {
         personalAreaPage.addEnglishlevel(EnglishLevelData.FIRSTLEVEL);
         personalAreaPage.addWillingToRelocate(true);
         personalAreaPage.addWorkFormat(true, WorkFormatData.REMOTELY);
-        personalAreaPage.addContactsOne("skype", "atata");
-        personalAreaPage.addContactsTwo("habr", "ydydy");
+        personalAreaPage.addContactsOne(InputFieldData.SKYPE, faker.name().name(), 2);
+//        personalAreaPage.clickAddCommunicationMethod();
+        personalAreaPage.addContactsOne(InputFieldData.HABR, faker.name().name(), 3);
         personalAreaPage.addGender(GenderData.MALE);
         personalAreaPage.addDataFields(InputFieldData.COMPANY, faker.company().name());
         personalAreaPage.addDataFields(InputFieldData.POSITION, faker.job().position());

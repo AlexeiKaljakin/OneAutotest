@@ -79,30 +79,25 @@ public class PersonalAreaPage extends AbsCommon {
             }
         }
     }
-public void addContactsOne(String contactType, String contactValue) {
+    public void clickAddCommunicationMethod() {
+        driver.findElement(By.cssSelector("button.js-lk-cv-custom-select-add")).click();
+    }
+
+public void addContactsOne(InputFieldData inputFieldData, String data, int number) {
     driver.findElement(By.xpath("//button[@type='button' and text()='Добавить']")).click();
     waitTools.waitForCondition(ExpectedConditions.elementToBeClickable(By.xpath("//span[@class=\"placeholder\" and" +
             " text()=\"Способ связи\"]")));
     driver.findElement(By.xpath("//span[@class=\"placeholder\" and text()=\"Способ связи\"]")).click();
     driver.findElement(By.xpath(String.format("//div[@class='lk-cv-block__select-options lk-cv-block__select-options_left" +
-            " js-custom-select-options-container']/div/button[@data-value='%s']", contactType))).click();
-
-
-    driver.findElement(By.xpath("//*[@id=\"id_contact-2-value\"]")).sendKeys(contactValue);
+            " js-custom-select-options-container']/div/button[@data-value='%s']", inputFieldData.getName()))).click();
+    WebElement inputData = driver.findElement(By.id(String.format("id_contact-%s-value", number)));
+    waitTools.waitForCondition(ExpectedConditions.elementToBeClickable(inputData));
+    inputData.click();
+    inputData.sendKeys(data);
     logger.info("Добавлен 1 контакт");
     driver.findElement(By.cssSelector("button.lk-cv-block__action.lk-cv-block__action_md-no-spacing.js-formset-add" +
             ".js-lk-cv-custom-select-add")).click();
-
 }
-    public void addContactsTwo(String contactType, String contactValue) {
-        driver.findElement(By.xpath("//span[@class='placeholder']")).click();
-        driver.findElement(By.xpath(String.format("//div[@class='lk-cv-block__select-options lk-cv-block__select-options_left" +
-                " js-custom-select-options-container']/div/button[@data-value='%s']", contactType))).click();
-
-        driver.findElement(By.xpath("//*[@id=\"id_contact-3-value\"]")).sendKeys(contactValue);
-        logger.info("Добавлен 2 контакт");
-
-    }
     public void addGender(GenderData genderData) {
         driver.findElement(By.id("id_gender")).click();
         driver.findElement(By.cssSelector(String.format("option[value='%s']", genderData.getName()))).click();

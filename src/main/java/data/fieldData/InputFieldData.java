@@ -8,7 +8,9 @@ public enum InputFieldData {
     BLOGNAME("blog_name"),
     DATEOFBRTH("date_of_birth"),
     COMPANY("company"),
-    POSITION("work");
+    POSITION("work"),
+    SKYPE("skype"),
+    HABR("habr");
 
     private String name;
 

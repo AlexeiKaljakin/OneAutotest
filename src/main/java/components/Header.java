@@ -27,6 +27,6 @@ public class Header extends AbsCommon {
         driver.findElement(By
                         .xpath("//div[@class='sc-1ceoo74-0 kwfuzG']"))
                 .click();
-        driver.findElement(By.xpath("//div/a[@class='sc-1pgqitk-0 dNitgt sc-1og4wiw-0-E sc-f3yn2n-3 idgtCT flRwOF' and text()='Мой профиль']")).click();
+        driver.findElement(By.xpath("//*[contains(@href, '/lk/biography/personal')]")).click();
     }
 }
